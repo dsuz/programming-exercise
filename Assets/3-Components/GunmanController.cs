@@ -17,6 +17,8 @@ public class GunmanController : MonoBehaviour
     [SerializeField] Transform m_muzzle = default;
     /// <summary>入力に応じて左右を反転させるかどうかのフラグ</summary>
     [SerializeField] bool m_flipX = false;
+    /// <summary>連続で（接地せずに）ジャンプ可能な回数</summary>
+    [SerializeField] int m_maxJumps = 2;
     Rigidbody2D m_rb = default;
     SpriteRenderer m_sprite = default;
     /// <summary>m_colors に使う添字</summary>
@@ -28,6 +30,8 @@ public class GunmanController : MonoBehaviour
     Vector3 m_initialPosition;
     /// <summary>接地判定変数</summary>
     bool m_isGrounded = false;
+    /// <summary>ジャンプした回数のカウンタ</summary>
+    int m_jumpCount;
 
     void Start()
     {
@@ -46,10 +50,17 @@ public class GunmanController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Debug.Log("ここにジャンプする処理を書く。");
+
             if (m_isGrounded)
             {
                 this.m_rb.AddForce(Vector2.up * this.m_jumpPower, ForceMode2D.Impulse);
             }
+            else if (m_jumpCount < m_maxJumps)
+            {
+                this.m_rb.AddForce(Vector2.up * this.m_jumpPower, ForceMode2D.Impulse);
+            }
+
+            m_jumpCount++;
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -111,6 +122,7 @@ public class GunmanController : MonoBehaviour
     {
         // 足下にトリガーを追加しておくこと。足下のトリガーに地面が接触したら「接地している」とみなす。
         m_isGrounded = true;
+        m_jumpCount = 0;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
