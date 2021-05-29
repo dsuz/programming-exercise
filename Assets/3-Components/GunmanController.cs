@@ -26,6 +26,8 @@ public class GunmanController : MonoBehaviour
     float m_scaleX;
     /// <summary>最初に出現した座標</summary>
     Vector3 m_initialPosition;
+    /// <summary>接地判定変数</summary>
+    bool m_isGrounded = false;
 
     void Start()
     {
@@ -44,7 +46,10 @@ public class GunmanController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Debug.Log("ここにジャンプする処理を書く。");
-            this.m_rb.AddForce(Vector2.up * this.m_jumpPower, ForceMode2D.Impulse);
+            if (m_isGrounded)
+            {
+                this.m_rb.AddForce(Vector2.up * this.m_jumpPower, ForceMode2D.Impulse);
+            }
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -100,5 +105,17 @@ public class GunmanController : MonoBehaviour
         {
             this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // 足下にトリガーを追加しておくこと。足下のトリガーに地面が接触したら「接地している」とみなす。
+        m_isGrounded = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 足下にトリガーを追加しておくこと。足下のトリガーから地面が離れたら「接地していない」とみなす。
+        m_isGrounded = false;
     }
 }
