@@ -44,6 +44,7 @@ public class GunmanController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Debug.Log("ここにジャンプする処理を書く。");
+            this.m_rb.AddForce(Vector2.up * this.m_jumpPower, ForceMode2D.Impulse);
         }
 
         if (Input.GetButtonDown("Fire1"))
