@@ -14,7 +14,7 @@ public class BulletController : MonoBehaviour
     {
         // 右方向に飛ばす
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.right * m_speed;
+        rb.velocity = this.transform.right * m_speed;
         // 生存期間が経過したら自分自身を破棄する
         Destroy(this.gameObject, m_lifeTime);
     }

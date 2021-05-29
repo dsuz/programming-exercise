@@ -66,7 +66,12 @@ public class GunmanController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Debug.Log("ここに弾を発射する処理を書く。");
-            Instantiate(m_bulletPrefab, this.m_muzzle.position, Quaternion.identity);
+            GameObject go = Instantiate(m_bulletPrefab, this.m_muzzle.position, Quaternion.identity);
+
+            if (this.transform.localScale.x < 0)
+            {
+                go.transform.Rotate(new Vector3(0, 0, 180f));
+            }
         }
 
         if (Input.GetButtonDown("Fire2"))
