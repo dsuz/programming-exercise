@@ -56,6 +56,8 @@ public class GunmanController : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             Debug.Log("ここに色を切り替える処理を書く。");
+            this.m_colorIndex++;
+            m_sprite.color = this.m_colors[m_colorIndex % this.m_colors.Length];
         }
 
         // 下に行きすぎたら初期位置に戻す
