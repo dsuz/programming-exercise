@@ -7,6 +7,8 @@ public class ShellController : MonoBehaviour
 {
     /// <summary>発射する速度</summary>
     [SerializeField] float m_initialSpeed = 5f;
+    /// <summary>爆発エフェクトとなるプレハブ</summary>
+    [SerializeField] GameObject m_effectPrefab = default;
 
     void Start()
     {
@@ -26,7 +28,12 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 何かにぶつかったら自分自身を破棄する
+        if (collision.gameObject.tag == "Rock" || collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Shell")
+        {
+            Instantiate(m_effectPrefab, this.transform.position, collision.transform.rotation);
+            
+        }
+
         Destroy(this.gameObject);
     }
 }
