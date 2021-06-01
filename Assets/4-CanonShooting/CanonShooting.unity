@@ -300,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shellPrefab: {fileID: 8795004254571698590, guid: 73a2d090cd908354eadd5ece3f72b8a6,
     type: 3}
+  m_crosshair: {fileID: 704807516}
   m_muzzle: {fileID: 2086706885}
 --- !u!82 &475722190
 AudioSource:
