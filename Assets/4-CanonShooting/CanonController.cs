@@ -11,11 +11,15 @@ public class CanonController : MonoBehaviour
     [SerializeField] Transform m_crosshair = default;
     /// <summary>砲口を指定する</summary>
     [SerializeField] Transform m_muzzle = default;
+    /// <summary>砲弾を発射できる間隔を指定する（秒）</summary>
+    [SerializeField] float m_shootInterval = 0.7f;
     AudioSource m_audio = default;
+    float m_timer;
 
     void Start()
     {
         m_audio = GetComponent<AudioSource>();
+        m_timer = m_shootInterval;
     }
 
     void Update()
@@ -24,10 +28,16 @@ public class CanonController : MonoBehaviour
         Vector2 dir = m_crosshair.transform.position - this.transform.position;
         this.transform.up = dir;
 
-        if (Input.GetButtonDown("Fire1"))
+        m_timer += Time.deltaTime;
+
+        if (m_timer > m_shootInterval)
         {
-            m_audio.Play();
-            Instantiate(m_shellPrefab, m_muzzle.position, this.transform.rotation);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                m_audio.Play();
+                Instantiate(m_shellPrefab, m_muzzle.position, this.transform.rotation);
+                m_timer = 0;
+            }
         }
     }
 }
