@@ -31,6 +31,8 @@ public class BirdFlapController : MonoBehaviour
 
     void Update()
     {
+        if (m_isGameover) return;
+
         // ジャンプボタンが押されたら上昇する
         if (Input.GetButtonDown("Jump"))
         {
