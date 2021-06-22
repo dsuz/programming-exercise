@@ -22,6 +22,7 @@ public class BirdFlapController : MonoBehaviour
 
     void Start()
     {
+        m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
         // シーンから、適切なオブジェクトを検索・取得する
         m_gameoverText = GameObject.Find("GameOverText");
