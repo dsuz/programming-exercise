@@ -25,7 +25,7 @@ public class BirdFlapController : MonoBehaviour
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
         // シーンから、適切なオブジェクトを検索・取得する
-        m_gameoverText = GameObject.Find("GameOverText");
+        m_gameoverText = GameObject.Find("GameoverText");
         m_timeText = GameObject.Find("TimeText");
     }
 
@@ -42,7 +42,7 @@ public class BirdFlapController : MonoBehaviour
         m_timeText.GetComponent<Text>().text = Time.time.ToString("F2");    // F2 で「小数点以下２桁まで」を指定して、実数を文字列に変換する（参考: https://dobon.net/vb/dotnet/string/inttostring.html）
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("何かにぶつかった！");
 
