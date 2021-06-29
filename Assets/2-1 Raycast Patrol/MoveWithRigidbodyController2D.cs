@@ -30,8 +30,8 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
         // Move();                     // 例題
         // MoveWithTurn();          // 課題4
         // MoveOnFloorWithStop();   // 例題
-        MoveOnFloorWithTurn();   // 課題5
-        // MoveOnFloor();           // 課題6
+        // MoveOnFloorWithTurn();   // 課題5
+        MoveOnFloor();           // 課題6
     }
 
     /// <summary>
@@ -127,6 +127,22 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     /// </summary>
     void MoveOnFloor()
     {
+        Vector2 origin = this.transform.position;
+        Debug.DrawLine(origin, origin + m_rayForGround, Color.red);
+        Debug.DrawLine(origin, origin + m_rayForWall, Color.blue);
+        RaycastHit2D hitForWall = Physics2D.Raycast(this.transform.position, m_rayForWall, m_rayForWall.magnitude, m_wallLayer);
+        RaycastHit2D hitForGround = Physics2D.Raycast(this.transform.position, m_rayForGround, m_rayForGround.magnitude, m_groundLayer);
+        Vector2 dir = Vector2.zero;
 
+        if (hitForWall.collider != null || hitForGround.collider == null)
+        {
+            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
+            m_rayForGround = new Vector2(-1 * m_rayForGround.x, m_rayForGround.y);
+            m_rayForWall = new Vector2(-1 * m_rayForWall.x, m_rayForWall.y);
+        }
+
+        dir = m_moveDirection.normalized * m_moveSpeed;
+        dir.y = m_rb.velocity.y;
+        m_rb.velocity = dir;
     }
 }
