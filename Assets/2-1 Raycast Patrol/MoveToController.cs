@@ -14,13 +14,16 @@ public class MoveToController : MonoBehaviour
     /// <summary>ターゲットにこの距離まで近づいたら「到達した」と判断する距離（単位:メートル）</summary>
     [Tooltip("ターゲットに到達したと認識する距離")]
     [SerializeField] float m_stoppingDistance = 0.05f;
+    /// <summary>次のターゲットに到達するまでのタイムリミット（秒）</summary>
+    [SerializeField] float m_timeLimitToNextTarget = 1f;
     int m_currentTargetIndex = 0;
+    float m_timer = 0;
 
     void Update()
     {
         // MoveToTarget0();    // 例題
-        Patrol();        // 課題1
-        // PatrolWithChangeTargetByTimeout();   // 課題2
+        // Patrol();        // 課題1
+        PatrolWithChangeTargetByTimeout();   // 課題2
         // PatrolWithChangeTargetByCollision(); // 課題3
     }
 
@@ -74,7 +77,19 @@ public class MoveToController : MonoBehaviour
     /// </summary>
     void PatrolWithChangeTargetByTimeout()
     {
+        float distance = Vector2.Distance(this.transform.position, m_targets[m_currentTargetIndex].position);
+        m_timer += Time.deltaTime;
 
+        if (distance < m_stoppingDistance || m_timer > m_timeLimitToNextTarget)
+        {
+            m_currentTargetIndex = (m_currentTargetIndex + 1) % m_targets.Length;
+            m_timer = 0;
+        }
+        else
+        {
+            Vector3 dir = (m_targets[m_currentTargetIndex].transform.position - this.transform.position).normalized * m_moveSpeed;
+            this.transform.Translate(dir * Time.deltaTime);
+        }
     }
 
     /// <summary>
