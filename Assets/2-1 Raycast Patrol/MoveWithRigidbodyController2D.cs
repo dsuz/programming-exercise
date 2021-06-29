@@ -28,9 +28,9 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void Update()
     {
         // Move();                     // 例題
-        MoveWithTurn();          // 課題4
+        // MoveWithTurn();          // 課題4
         // MoveOnFloorWithStop();   // 例題
-        // MoveOnFloorWithTurn();   // 課題5
+        MoveOnFloorWithTurn();   // 課題5
         // MoveOnFloor();           // 課題6
     }
 
@@ -105,7 +105,20 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     /// </summary>
     void MoveOnFloorWithTurn()
     {
+        Vector2 origin = this.transform.position;
+        Debug.DrawLine(origin, origin + m_rayForGround);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForGround, m_rayForGround.magnitude, m_groundLayer);
+        Vector2 dir = Vector2.zero;
 
+        if (hit.collider == null)
+        {
+            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
+            m_rayForGround = new Vector2(-1 * m_rayForGround.x, m_rayForGround.y);
+        }
+
+        dir = m_moveDirection.normalized * m_moveSpeed;
+        dir.y = m_rb.velocity.y;
+        m_rb.velocity = dir;
     }
 
     /// <summary>
