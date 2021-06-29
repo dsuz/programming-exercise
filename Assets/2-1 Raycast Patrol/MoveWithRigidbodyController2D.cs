@@ -16,6 +16,8 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     [SerializeField] Vector2 m_rayForGround = Vector2.zero;
     /// <summary>床のレイヤー</summary>
     [SerializeField] LayerMask m_groundLayer = 0;
+    /// <summary>移動方向</summary>
+    Vector2 m_moveDirection = Vector2.right;
     Rigidbody2D m_rb = default;
 
     void Start()
@@ -25,8 +27,8 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
 
     void Update()
     {
-        Move();                     // 例題
-        // MoveWithTurn();          // 課題4
+        // Move();                     // 例題
+        MoveWithTurn();          // 課題4
         // MoveOnFloorWithStop();   // 例題
         // MoveOnFloorWithTurn();   // 課題5
         // MoveOnFloor();           // 課題6
@@ -60,7 +62,20 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     /// </summary>
     void MoveWithTurn()
     {
+        Vector2 origin = this.transform.position;
+        Debug.DrawLine(origin, origin + m_rayForWall);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForWall, m_rayForWall.magnitude, m_wallLayer);
+        Vector2 dir = Vector2.zero;
 
+        if (hit.collider)
+        {
+            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
+            m_rayForWall = new Vector2(-1 * m_rayForWall.x, m_rayForWall.y);
+        }
+
+        dir = m_moveDirection.normalized * m_moveSpeed;
+        dir.y = m_rb.velocity.y;
+        m_rb.velocity = dir;
     }
 
     /// <summary>
