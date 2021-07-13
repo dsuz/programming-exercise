@@ -27,8 +27,7 @@ public class StopWatchByCoroutine : MonoBehaviour
         else
         {
             // 実行中だったら停止する
-            StopCoroutine(m_coroutine);
-            m_coroutine = null; // 停止中は null
+            StopWorking();
         }
     }
 
@@ -44,5 +43,25 @@ public class StopWatchByCoroutine : MonoBehaviour
             m_stopWatch.text = m_timer.ToString("F2");
             yield return new WaitForEndOfFrame();   // Update() の処理が終わるまで待つ
         }
+    }
+
+    /// <summary>
+    /// ストップウォッチを止める
+    /// </summary>
+    void StopWorking()
+    {
+        StopCoroutine(m_coroutine);
+        m_coroutine = null; // 停止中は null
+    }
+
+    public void Reset()
+    {
+        if (m_coroutine != null)
+        {
+            StopWorking();
+        }
+
+        m_timer = 0;
+        m_stopWatch.text = m_timer.ToString("F2");
     }
 }
