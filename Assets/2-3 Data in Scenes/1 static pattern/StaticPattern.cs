@@ -25,6 +25,7 @@ public class StaticPattern : MonoBehaviour
         if (m_text)
         {
             m_text.text = $"よくぞ来た！勇者 <b><color=red>{StaticPattern.m_name}</color></b> よ！";
+            Debug.Log(m_text.text);
         }
     }
 }

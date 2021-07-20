@@ -10,6 +10,8 @@ public class DDOLPattern : MonoBehaviour
     [SerializeField] string m_messageTextName = "MessageText";
     /// <summary>プレイヤーの名前。これをシーンまたぎで渡す</summary>
     [SerializeField] string m_name = "ああああ";
+    /// <summary>Start 関数の処理が終わっているか表すフラグ</summary>
+    bool m_isStarted = false;
 
     void Start()
     {
@@ -22,7 +24,8 @@ public class DDOLPattern : MonoBehaviour
         {
             // 自分しかいない時は、自分を DontDestroyOnLoad に登録する
             DontDestroyOnLoad(this.gameObject);
-            OnLevelWasLoaded(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex); // 現在のシーン番号を渡しながら関数を呼ぶ
+            ShowMessage();
+            m_isStarted = true;
         }
     }
 
@@ -43,12 +46,21 @@ public class DDOLPattern : MonoBehaviour
     /// <param name="level"></param>
     void OnLevelWasLoaded(int level)
     {
+        if (m_isStarted) ShowMessage();
+    }
+
+    /// <summary>
+    /// メッセージを表示する
+    /// </summary>
+    void ShowMessage()
+    {
         GameObject go = GameObject.Find(m_messageTextName);
         Text text = go?.GetComponent<Text>();
 
         if (text)
         {
             text.text = $"おお！<b><color=red>{m_name}</color></b> よ！しんでしまうとは なにごとだ！";
+            Debug.Log(text.text);
         }
     }
 }
