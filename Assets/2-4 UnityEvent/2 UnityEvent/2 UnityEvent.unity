@@ -415,7 +415,9 @@ GameObject:
   - component: {fileID: 286292097}
   - component: {fileID: 286292098}
   - component: {fileID: 286292099}
+  - component: {fileID: 286292101}
   - component: {fileID: 286292100}
+  - component: {fileID: 286292102}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
@@ -554,8 +556,8 @@ MonoBehaviour:
   m_actions:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 286292100}
-        m_MethodName: Play
+      - m_Target: {fileID: 286292101}
+        m_MethodName: Move
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -575,7 +577,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 12c4d0857bed447449980a18a32e9702, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3fefc461cddec984dad9455133325636, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -661,6 +663,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &286292101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286292094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4e738b270c7ba4e8dd2d7ecf3d8e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &286292102
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286292094}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf94b6d3d7c2c5d4aab0952d4f5de31c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &314086468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,7 +1058,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 67f6c2893d930f346a6c8f3af6c0cb9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
