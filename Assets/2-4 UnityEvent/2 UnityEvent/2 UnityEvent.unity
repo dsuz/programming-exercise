@@ -946,8 +946,8 @@ GameObject:
   - component: {fileID: 1019909019}
   - component: {fileID: 1019909018}
   - component: {fileID: 1019909017}
-  - component: {fileID: 1019909020}
   - component: {fileID: 1019909021}
+  - component: {fileID: 1019909020}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -1039,7 +1039,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019909016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.237167, y: -3.52, z: 0}
+  m_LocalPosition: {x: -2, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1058,7 +1058,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 67f6c2893d930f346a6c8f3af6c0cb9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
