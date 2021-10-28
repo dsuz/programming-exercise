@@ -54,7 +54,7 @@ public class ObjectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Crystal から近い順にラベルに番号を振る
+    /// Crystal から近い順に Block のラベルに番号を振る
     /// </summary>
     void NumberBlockOrderByDistance()
     {
