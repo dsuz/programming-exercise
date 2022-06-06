@@ -445,11 +445,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1
-  _rayForWall: {x: 1, y: 0}
+  _lineForWall: {x: 0.7, y: 0}
   _wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  _rayForGround: {x: 0.6, y: -0.6}
+  _lineForGround: {x: 0.65, y: -0.6}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 512

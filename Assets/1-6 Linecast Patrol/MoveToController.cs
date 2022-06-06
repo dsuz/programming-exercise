@@ -5,14 +5,11 @@
 /// </summary>
 public class MoveToController : MonoBehaviour
 {
-    /// <summary>移動先を示すアンカーポイント</summary>
     [Tooltip("移動先ターゲットとなるオブジェクト")]  // このように書くと Inspector に説明を表示できる
     [SerializeField] Transform[] _targets;
-    /// <summary>移動速度</summary>
     [Tooltip("オブジェクトの移動速度")]
     [SerializeField] float _moveSpeed = 1f;
-    /// <summary>ターゲットにこの距離まで近づいたら「到達した」と判断する距離（単位:メートル）</summary>
-    [Tooltip("ターゲットに到達したと認識する距離")]
+    [Tooltip("ターゲットに到達したと判断する距離（単位:メートル）")]
     [SerializeField] float _stoppingDistance = 0.05f;
     /// <summary>次のターゲットに到達するまでのタイムリミット（秒）</summary>
     [SerializeField] float _timeLimitToNextTarget = 1f;
@@ -22,14 +19,14 @@ public class MoveToController : MonoBehaviour
 
     void Update()
     {
-        //MoveToTarget0();                        // 例題
-        Patrol();                            // 課題1
+        MoveToTarget0();                        // 例題
+        // Patrol();                            // 課題1
         // PatrolWithChangeTargetByTimeout();   // 課題2
         // PatrolWithChangeTargetByCollision(); // 課題3
     }
 
     /// <summary>
-    /// 例題: m_targets[0] にアサインしたオブジェクトの位置まで移動する処理を書け。
+    /// 例題: _targets[0] にアサインしたオブジェクトの位置まで移動する処理を書け。
     /// </summary>
     void MoveToTarget0()
     {
@@ -45,13 +42,14 @@ public class MoveToController : MonoBehaviour
 
     /// <summary>
     /// 課題1:
-    /// m_targets[] にアサインした任意の数 n のオブジェクトを巡回移動する処理を書け。
+    /// _targets[] にアサインした任意の数 n のオブジェクトを巡回移動する処理を書け。
     /// 例）
-    /// m_targets[0] に到達したら次は m_targets[1] に向かう
-    /// m_targets[1] に到達したら次は m_targets[2] に向かう
-    /// m_targets[2] に到達したら次は m_targets[3] に向かう
+    /// _targets[0] に到達したら次は _targets[1] に向かう
+    /// _targets[1] に到達したら次は _targets[2] に向かう
+    /// _targets[2] に到達したら次は _targets[3] に向かう
     /// ...
-    /// m_targets[n] に到達したら次は m_targets[0] に向かう
+    /// _targets[n] に到達したら次は _targets[0] に向かう
+    /// （以下、繰り返す）
     /// </summary>
     void Patrol()
     {
@@ -64,26 +62,25 @@ public class MoveToController : MonoBehaviour
         }
         else
         {
-            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
+            _currentTargetIndex++;
         }
     }
 
     /// <summary>
     /// 課題2:
-    /// m_targets[] にアサインした任意の数 n のオブジェクトを巡回移動する処理を書け。
+    /// _targets[] にアサインした任意の数 n のオブジェクトを巡回移動する処理を書け。
     /// ただし、制限時間をメンバ変数として設定し、制限時間内に次のオブジェクトに到達しなかった場合は配列の次の要素のオブジェクトに移動先を切り替えよ。
     /// 例）
-    /// m_targets[1] に制限時間内に到達しなかったら、その時点で m_targets[2] に向かう
-    /// m_targets[2] に制限時間内に到達したら、m_targets[3] に向かう
+    /// _targets[1] に制限時間内に到達しなかったら、その時点で _targets[2] に向かう
+    /// _targets[2] に制限時間内に到達したら、_targets[3] に向かう
     /// </summary>
     void PatrolWithChangeTargetByTimeout()
     {
         float distance = Vector2.Distance(this.transform.position, _targets[_currentTargetIndex].position);
-        _timer += Time.deltaTime;
 
         if (distance < _stoppingDistance || _timer > _timeLimitToNextTarget)
         {
-            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
+            _currentTargetIndex++;
             _timer = 0;
         }
         else
@@ -103,10 +100,5 @@ public class MoveToController : MonoBehaviour
     void PatrolWithChangeTargetByCollision()
     {
         Patrol();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
     }
 }
