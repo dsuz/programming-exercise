@@ -7,24 +7,25 @@ public class MoveToController : MonoBehaviour
 {
     /// <summary>移動先を示すアンカーポイント</summary>
     [Tooltip("移動先ターゲットとなるオブジェクト")]  // このように書くと Inspector に説明を表示できる
-    [SerializeField] Transform[] m_targets = default;
+    [SerializeField] Transform[] _targets;
     /// <summary>移動速度</summary>
     [Tooltip("オブジェクトの移動速度")]
-    [SerializeField] float m_moveSpeed = 1f;
+    [SerializeField] float _moveSpeed = 1f;
     /// <summary>ターゲットにこの距離まで近づいたら「到達した」と判断する距離（単位:メートル）</summary>
     [Tooltip("ターゲットに到達したと認識する距離")]
-    [SerializeField] float m_stoppingDistance = 0.05f;
+    [SerializeField] float _stoppingDistance = 0.05f;
     /// <summary>次のターゲットに到達するまでのタイムリミット（秒）</summary>
-    [SerializeField] float m_timeLimitToNextTarget = 1f;
-    int m_currentTargetIndex = 0;
-    float m_timer = 0;
+    [SerializeField] float _timeLimitToNextTarget = 1f;
+    /// <summary>現在のターゲットのインデックス</summary>
+    int _currentTargetIndex = 0;
+    float _timer = 0;
 
     void Update()
     {
-        // MoveToTarget0();    // 例題
-        // Patrol();        // 課題1
+        //MoveToTarget0();                        // 例題
+        Patrol();                            // 課題1
         // PatrolWithChangeTargetByTimeout();   // 課題2
-        PatrolWithChangeTargetByCollision(); // 課題3
+        // PatrolWithChangeTargetByCollision(); // 課題3
     }
 
     /// <summary>
@@ -33,11 +34,11 @@ public class MoveToController : MonoBehaviour
     void MoveToTarget0()
     {
         // 自分自身とターゲットの距離を求める
-        float distance = Vector2.Distance(this.transform.position, m_targets[0].position);
+        float distance = Vector2.Distance(this.transform.position, _targets[0].position);
 
-        if (distance > m_stoppingDistance)  // ターゲットに到達するまで処理する
+        if (distance > _stoppingDistance)  // ターゲットに到達するまで処理する
         {
-            Vector3 dir = (m_targets[0].transform.position - this.transform.position).normalized * m_moveSpeed; // 移動方向のベクトルを求める
+            Vector3 dir = (_targets[0].transform.position - this.transform.position).normalized * _moveSpeed; // 移動方向のベクトルを求める
             this.transform.Translate(dir * Time.deltaTime); // Update の中で移動する場合は、Time.deltaTime をかけることによりどの環境でも同じ速さで移動させることができる
         }
     }
@@ -54,16 +55,16 @@ public class MoveToController : MonoBehaviour
     /// </summary>
     void Patrol()
     {
-        float distance = Vector2.Distance(this.transform.position, m_targets[m_currentTargetIndex].position);
+        float distance = Vector2.Distance(this.transform.position, _targets[_currentTargetIndex].position);
 
-        if (distance > m_stoppingDistance)
+        if (distance > _stoppingDistance)
         {
-            Vector3 dir = (m_targets[m_currentTargetIndex].transform.position - this.transform.position).normalized * m_moveSpeed;
+            Vector3 dir = (_targets[_currentTargetIndex].transform.position - this.transform.position).normalized * _moveSpeed;
             this.transform.Translate(dir * Time.deltaTime);
         }
         else
         {
-            m_currentTargetIndex = (m_currentTargetIndex + 1) % m_targets.Length;
+            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
         }
     }
 
@@ -77,17 +78,17 @@ public class MoveToController : MonoBehaviour
     /// </summary>
     void PatrolWithChangeTargetByTimeout()
     {
-        float distance = Vector2.Distance(this.transform.position, m_targets[m_currentTargetIndex].position);
-        m_timer += Time.deltaTime;
+        float distance = Vector2.Distance(this.transform.position, _targets[_currentTargetIndex].position);
+        _timer += Time.deltaTime;
 
-        if (distance < m_stoppingDistance || m_timer > m_timeLimitToNextTarget)
+        if (distance < _stoppingDistance || _timer > _timeLimitToNextTarget)
         {
-            m_currentTargetIndex = (m_currentTargetIndex + 1) % m_targets.Length;
-            m_timer = 0;
+            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
+            _timer = 0;
         }
         else
         {
-            Vector3 dir = (m_targets[m_currentTargetIndex].transform.position - this.transform.position).normalized * m_moveSpeed;
+            Vector3 dir = (_targets[_currentTargetIndex].transform.position - this.transform.position).normalized * _moveSpeed;
             this.transform.Translate(dir * Time.deltaTime);
         }
     }
@@ -106,6 +107,6 @@ public class MoveToController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        m_currentTargetIndex = (m_currentTargetIndex + 1) % m_targets.Length;
+        _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
     }
 }

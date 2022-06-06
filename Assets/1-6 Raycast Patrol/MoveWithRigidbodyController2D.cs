@@ -7,22 +7,22 @@
 public class MoveWithRigidbodyController2D : MonoBehaviour
 {
     /// <summary>移動速度</summary>
-    [SerializeField] float m_moveSpeed = 1f;
+    [SerializeField] float _moveSpeed = 1f;
     /// <summary>壁を検出するための ray のベクトル</summary>
-    [SerializeField] Vector2 m_rayForWall = Vector2.zero;
+    [SerializeField] Vector2 _rayForWall = Vector2.right * 0.6f;
     /// <summary>壁のレイヤー（レイヤーはオブジェクトに設定されている）</summary>
-    [SerializeField] LayerMask m_wallLayer = 0;
+    [SerializeField] LayerMask _wallLayer = 0;
     /// <summary>床を検出するための ray のベクトル</summary>
-    [SerializeField] Vector2 m_rayForGround = Vector2.zero;
+    [SerializeField] Vector2 _rayForGround = new Vector2(0.65f, -0.6f);
     /// <summary>床のレイヤー</summary>
-    [SerializeField] LayerMask m_groundLayer = 0;
+    [SerializeField] LayerMask _groundLayer = 0;
     /// <summary>移動方向</summary>
-    Vector2 m_moveDirection = Vector2.right;
-    Rigidbody2D m_rb = default;
+    Vector2 _moveDirection = Vector2.right;
+    Rigidbody2D _rb = default;
 
     void Start()
     {
-        m_rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -31,7 +31,7 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
         // MoveWithTurn();          // 課題4
         // MoveOnFloorWithStop();   // 例題
         // MoveOnFloorWithTurn();   // 課題5
-        MoveOnFloor();           // 課題6
+        // MoveOnFloor();           // 課題6
     }
 
     /// <summary>
@@ -40,19 +40,19 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void Move()
     {
         Vector2 origin = this.transform.position;   // origin は「raycast の始点」である
-        Debug.DrawLine(origin, origin + m_rayForWall);  // ray（光線）を Scene 上に描く
+        Debug.DrawLine(origin, origin + _rayForWall);  // ray（光線）を Scene 上に描く
         // Raycast して壁の検出を試みる
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForWall, m_rayForWall.magnitude, m_wallLayer);   // hit には ray の衝突情報が入っている
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, _rayForWall, _rayForWall.magnitude, _wallLayer);   // hit には ray の衝突情報が入っている
         Vector2 dir = Vector2.zero; // dir は速度ベクトル
 
         if (!hit.collider)  // hit.collider は「ray が衝突した collider」が入っている。ray が何にもぶつからなかったら null である。
         {
             // 何も検出しなかったら速度ベクトルを計算する
-            dir = Vector2.right * m_moveSpeed;
+            dir = Vector2.right * _moveSpeed;
         }
 
-        dir.y = m_rb.velocity.y;    // 落下については現在の値を採用する
-        m_rb.velocity = dir;    // 速度ベクトルをセットする
+        dir.y = _rb.velocity.y;    // 落下については現在の値を採用する
+        _rb.velocity = dir;    // 速度ベクトルをセットする
     }
 
     /// <summary>
@@ -63,19 +63,19 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void MoveWithTurn()
     {
         Vector2 origin = this.transform.position;
-        Debug.DrawLine(origin, origin + m_rayForWall);
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForWall, m_rayForWall.magnitude, m_wallLayer);
+        Debug.DrawLine(origin, origin + _rayForWall);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, _rayForWall, _rayForWall.magnitude, _wallLayer);
         Vector2 dir = Vector2.zero;
 
         if (hit.collider)
         {
-            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
-            m_rayForWall = new Vector2(-1 * m_rayForWall.x, m_rayForWall.y);
+            _moveDirection = new Vector2(-1 * _moveDirection.x, _moveDirection.y);
+            _rayForWall = new Vector2(-1 * _rayForWall.x, _rayForWall.y);
         }
 
-        dir = m_moveDirection.normalized * m_moveSpeed;
-        dir.y = m_rb.velocity.y;
-        m_rb.velocity = dir;
+        dir = _moveDirection.normalized * _moveSpeed;
+        dir.y = _rb.velocity.y;
+        _rb.velocity = dir;
     }
 
     /// <summary>
@@ -84,18 +84,18 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void MoveOnFloorWithStop()
     {
         Vector2 origin = this.transform.position;
-        Debug.DrawLine(origin, origin + m_rayForGround);    // ray を Scene 上に描く
+        Debug.DrawLine(origin, origin + _rayForGround);    // ray を Scene 上に描く
         // Raycast して床の検出を試みる
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForGround, m_rayForGround.magnitude, m_groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, _rayForGround, _rayForGround.magnitude, _groundLayer);
         Vector2 dir = Vector2.zero; // dir は速度ベクトル
 
         if (hit.collider)
         {
             // 床を検出したら速度ベクトルを計算する
-            dir = Vector2.right * m_moveSpeed;
+            dir = Vector2.right * _moveSpeed;
         }
-        dir.y = m_rb.velocity.y;    // 落下については現在の値を採用する
-        m_rb.velocity = dir;    // 速度ベクトルをセットする
+        dir.y = _rb.velocity.y;    // 落下については現在の値を採用する
+        _rb.velocity = dir;    // 速度ベクトルをセットする
     }
 
     /// <summary>
@@ -106,19 +106,19 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void MoveOnFloorWithTurn()
     {
         Vector2 origin = this.transform.position;
-        Debug.DrawLine(origin, origin + m_rayForGround);
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, m_rayForGround, m_rayForGround.magnitude, m_groundLayer);
+        Debug.DrawLine(origin, origin + _rayForGround);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, _rayForGround, _rayForGround.magnitude, _groundLayer);
         Vector2 dir = Vector2.zero;
 
         if (hit.collider == null)
         {
-            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
-            m_rayForGround = new Vector2(-1 * m_rayForGround.x, m_rayForGround.y);
+            _moveDirection = new Vector2(-1 * _moveDirection.x, _moveDirection.y);
+            _rayForGround = new Vector2(-1 * _rayForGround.x, _rayForGround.y);
         }
 
-        dir = m_moveDirection.normalized * m_moveSpeed;
-        dir.y = m_rb.velocity.y;
-        m_rb.velocity = dir;
+        dir = _moveDirection.normalized * _moveSpeed;
+        dir.y = _rb.velocity.y;
+        _rb.velocity = dir;
     }
 
     /// <summary>
@@ -128,21 +128,21 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     void MoveOnFloor()
     {
         Vector2 origin = this.transform.position;
-        Debug.DrawLine(origin, origin + m_rayForGround, Color.red);
-        Debug.DrawLine(origin, origin + m_rayForWall, Color.blue);
-        RaycastHit2D hitForWall = Physics2D.Raycast(this.transform.position, m_rayForWall, m_rayForWall.magnitude, m_wallLayer);
-        RaycastHit2D hitForGround = Physics2D.Raycast(this.transform.position, m_rayForGround, m_rayForGround.magnitude, m_groundLayer);
+        Debug.DrawLine(origin, origin + _rayForGround, Color.red);
+        Debug.DrawLine(origin, origin + _rayForWall, Color.blue);
+        RaycastHit2D hitForWall = Physics2D.Raycast(this.transform.position, _rayForWall, _rayForWall.magnitude, _wallLayer);
+        RaycastHit2D hitForGround = Physics2D.Raycast(this.transform.position, _rayForGround, _rayForGround.magnitude, _groundLayer);
         Vector2 dir = Vector2.zero;
 
         if (hitForWall.collider != null || hitForGround.collider == null)
         {
-            m_moveDirection = new Vector2(-1 * m_moveDirection.x, m_moveDirection.y);
-            m_rayForGround = new Vector2(-1 * m_rayForGround.x, m_rayForGround.y);
-            m_rayForWall = new Vector2(-1 * m_rayForWall.x, m_rayForWall.y);
+            _moveDirection = new Vector2(-1 * _moveDirection.x, _moveDirection.y);
+            _rayForGround = new Vector2(-1 * _rayForGround.x, _rayForGround.y);
+            _rayForWall = new Vector2(-1 * _rayForWall.x, _rayForWall.y);
         }
 
-        dir = m_moveDirection.normalized * m_moveSpeed;
-        dir.y = m_rb.velocity.y;
-        m_rb.velocity = dir;
+        dir = _moveDirection.normalized * _moveSpeed;
+        dir.y = _rb.velocity.y;
+        _rb.velocity = dir;
     }
 }
