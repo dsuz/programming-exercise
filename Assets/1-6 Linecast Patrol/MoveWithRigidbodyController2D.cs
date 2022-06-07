@@ -27,11 +27,11 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
 
     void Update()
     {
-        Move();                     // 例題
+        // Move();                     // 例題
         // MoveWithTurn();          // 課題4
         // MoveOnFloorWithStop();   // 例題
         // MoveOnFloorWithTurn();   // 課題5
-        // MoveOnFloor();           // 課題6
+        MoveOnFloor();           // 課題6
     }
 
     /// <summary>
@@ -70,6 +70,8 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
         if (hit.collider)
         {
             Debug.Log("Hit Wall");
+            _moveDirection.x = -1 * _moveDirection.x;
+            _lineForWall.x = -1 * _lineForWall.x;
         }
 
         velo = _moveDirection.normalized * _moveSpeed;
@@ -105,7 +107,24 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     /// </summary>
     void MoveOnFloorWithTurn()
     {
+        Vector2 start = this.transform.position;
+        Debug.DrawLine(start, start + _lineForGround);
+        RaycastHit2D hit = Physics2D.Linecast(start, start + _lineForGround, _groundLayer);
+        Vector2 velo = Vector2.zero; // velo は速度ベクトル
 
+        if (hit.collider)
+        {
+            // 床を検出したら速度ベクトルを計算する
+            velo = _moveDirection * _moveSpeed;
+        }
+        else
+        {
+            _moveDirection.x = -1 * _moveDirection.x;
+            _lineForGround.x = -1 * _lineForGround.x;
+        }
+
+        velo.y = _rb.velocity.y;    // 落下については現在の値を保持する
+        _rb.velocity = velo;        // 速度ベクトルをセットする
     }
 
     /// <summary>
@@ -114,6 +133,25 @@ public class MoveWithRigidbodyController2D : MonoBehaviour
     /// </summary>
     void MoveOnFloor()
     {
+        Vector2 velo = Vector2.zero; // velo は速度ベクトル
+        Vector2 start = this.transform.position;
+        Debug.DrawLine(start, start + _lineForGround, Color.red);
+        Debug.DrawLine(start, start + _lineForWall, Color.white);
+        RaycastHit2D hitGround = Physics2D.Linecast(start, start + _lineForGround, _groundLayer);
+        RaycastHit2D hitWall = Physics2D.Linecast(start, start + _lineForWall, _wallLayer);
 
+        if (hitGround.collider && !hitWall.collider)
+        {
+            velo = _moveDirection * _moveSpeed;
+        }
+        else
+        {
+            _moveDirection.x = -1 * _moveDirection.x;
+            _lineForGround.x = -1 * _lineForGround.x;
+            _lineForWall.x = -1 * _lineForWall.x;
+        }
+
+        velo.y = _rb.velocity.y;    // 落下については現在の値を保持する
+        _rb.velocity = velo;
     }
 }
