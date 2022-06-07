@@ -21,8 +21,8 @@ public class MoveToController : MonoBehaviour
     {
         // MoveToTarget0();                        // 例題
         // Patrol();                            // 課題1
-        PatrolWithChangeTargetByTimeout();   // 課題2
-        // PatrolWithChangeTargetByCollision(); // 課題3
+        // PatrolWithChangeTargetByTimeout();   // 課題2
+        PatrolWithChangeTargetByCollision(); // 課題3
     }
 
     /// <summary>
@@ -101,5 +101,10 @@ public class MoveToController : MonoBehaviour
     void PatrolWithChangeTargetByCollision()
     {
         Patrol();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
     }
 }
