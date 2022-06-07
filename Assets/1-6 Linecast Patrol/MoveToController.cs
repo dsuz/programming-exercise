@@ -19,9 +19,9 @@ public class MoveToController : MonoBehaviour
 
     void Update()
     {
-        MoveToTarget0();                        // 例題
+        // MoveToTarget0();                        // 例題
         // Patrol();                            // 課題1
-        // PatrolWithChangeTargetByTimeout();   // 課題2
+        PatrolWithChangeTargetByTimeout();   // 課題2
         // PatrolWithChangeTargetByCollision(); // 課題3
     }
 
@@ -62,7 +62,7 @@ public class MoveToController : MonoBehaviour
         }
         else
         {
-            _currentTargetIndex++;
+            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
         }
     }
 
@@ -77,10 +77,11 @@ public class MoveToController : MonoBehaviour
     void PatrolWithChangeTargetByTimeout()
     {
         float distance = Vector2.Distance(this.transform.position, _targets[_currentTargetIndex].position);
+        _timer += Time.deltaTime;
 
         if (distance < _stoppingDistance || _timer > _timeLimitToNextTarget)
         {
-            _currentTargetIndex++;
+            _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Length;
             _timer = 0;
         }
         else
