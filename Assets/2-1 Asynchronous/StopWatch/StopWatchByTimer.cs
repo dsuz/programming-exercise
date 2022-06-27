@@ -7,22 +7,22 @@ using UnityEngine.UI;   // Text を使うため
 public class StopWatchByTimer : MonoBehaviour
 {
     /// <summary>時間を表示する Text コンポーネント</summary>
-    [SerializeField] Text m_stopWatch = default;
+    [SerializeField] Text _stopWatch = default;
     /// <summary>タイマー</summary>
-    float m_timer = 0;
+    float _timer = 0;
     /// <summary>ストップウォッチが計測中かどうかを表すフラグ。true の時は計測中とする。</summary>
-    bool m_isWorking = false;
+    bool _isWorking = false;
 
     void Update()
     {
-        if (m_isWorking)    // 計測中
+        if (_isWorking)    // 計測中
         {
             // Time.deltaTime は「前回の Update が完了してから経過した秒数」を取得できる。Time クラスは「時間」に関係した機能を持つクラスである。
-            m_timer += Time.deltaTime;
-            m_stopWatch.text = m_timer.ToString("F2");
+            _timer += Time.deltaTime;
+            _stopWatch.text = _timer.ToString("F2");
             // ↑ToString() の引数 F2 は 「'F'loat の小数点以下 '2' 桁」に書式指定している（参照: https://dobon.net/vb/dotnet/string/inttostring.html）。
             // ↓のように書式指定をしない場合、非常に見づらくなる。
-            // m_stopWatch.text = m_timer.ToString();
+            // _stopWatch.text = m_timer.ToString();
         }
     }
 
@@ -31,15 +31,15 @@ public class StopWatchByTimer : MonoBehaviour
     /// </summary>
     public void StartPause()
     {
-        if (m_isWorking)
+        if (_isWorking)
         {
             // TODO: 計測中ならばストップウォッチを止める
-            m_isWorking = false;
+            _isWorking = false;
         }
         else
         {
             // 計測中ではない場合は、計測中フラグを立てる
-            m_isWorking = true;
+            _isWorking = true;
         }
     }
 
@@ -48,12 +48,12 @@ public class StopWatchByTimer : MonoBehaviour
     /// </summary>
     public void Reset()
     {
-        if (m_isWorking)
+        if (_isWorking)
         {
-            m_isWorking = false;
+            _isWorking = false;
         }
 
-        m_timer = 0;
-        m_stopWatch.text = m_timer.ToString("F2");
+        _timer = 0;
+        _stopWatch.text = _timer.ToString("F2");
     }
 }

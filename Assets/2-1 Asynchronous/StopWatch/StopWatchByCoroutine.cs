@@ -8,21 +8,21 @@ using UnityEngine.UI;   // Text を使うため
 public class StopWatchByCoroutine : MonoBehaviour
 {
     /// <summary>時間を表示する Text コンポーネント</summary>
-    [SerializeField] Text m_stopWatch = default;
+    [SerializeField] Text _stopWatch = default;
     /// <summary>ストップウォッチの計測値</summary>
-    float m_timer = 0;
+    float _timer = 0;
     /// <summary>実行中のコルーチン（実行していない時は null）</summary>
-    Coroutine m_coroutine = null;
+    Coroutine _coroutine = null;
 
     /// <summary>
     /// ストップウォッチが停止していたら計測を開始し、計測中ならば計測を停止する
     /// </summary>
     public void StartPause()
     {
-        if (m_coroutine == null)    // 停止している時は
+        if (_coroutine == null)    // 停止している時は
         {
             // コルーチンを開始する
-            m_coroutine = StartCoroutine(StartWorkingRoutine());
+            _coroutine = StartCoroutine(StartWorkingRoutine());
         }
         else
         {
@@ -39,8 +39,8 @@ public class StopWatchByCoroutine : MonoBehaviour
     {
         while (true)
         {
-            m_timer += Time.deltaTime;
-            m_stopWatch.text = m_timer.ToString("F2");
+            _timer += Time.deltaTime;
+            _stopWatch.text = _timer.ToString("F2");
             yield return new WaitForEndOfFrame();   // Update() の処理が終わるまで待つ
         }
     }
@@ -50,18 +50,18 @@ public class StopWatchByCoroutine : MonoBehaviour
     /// </summary>
     void StopWorking()
     {
-        StopCoroutine(m_coroutine);
-        m_coroutine = null; // 停止中は null
+        StopCoroutine(_coroutine);
+        _coroutine = null; // 停止中は null
     }
 
     public void Reset()
     {
-        if (m_coroutine != null)
+        if (_coroutine != null)
         {
             StopWorking();
         }
 
-        m_timer = 0;
-        m_stopWatch.text = m_timer.ToString("F2");
+        _timer = 0;
+        _stopWatch.text = _timer.ToString("F2");
     }
 }

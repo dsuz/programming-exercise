@@ -8,26 +8,26 @@ using UnityEngine.UI;
 public class FadeByTimer : MonoBehaviour
 {
     /// <summary>フェード用 Image</summary>
-    [SerializeField] Image m_fadeImage = default;
+    [SerializeField] Image _fadeImage = default;
     /// <summary>フェードアウト完了までにかかる時間（秒）/summary>
-    [SerializeField] float m_fadeTime = 1;
+    [SerializeField] float _fadeTime = 1;
     /// <summary>フェードアウトが完了したら鳴らす音/summary>
-    [SerializeField] AudioClip m_buzzer = default;
-    float m_timer = 0;
+    [SerializeField] AudioClip _buzzer = default;
+    float _timer = 0;
     /// <summary>true の時フェード中を表すフラグ</summary>
-    bool m_fade = false;
+    bool _fade = false;
 
     void Update()
     {
-        if (m_fade)
+        if (_fade)
         {
             // Image から Color を取得し、時間の進行に合わせたアルファを設定して Image に戻す
-            m_timer += Time.deltaTime;
-            Color c = m_fadeImage.color;
-            c.a = m_timer / m_fadeTime;
-            m_fadeImage.color = c;
+            _timer += Time.deltaTime;
+            Color c = _fadeImage.color;
+            c.a = _timer / _fadeTime;
+            _fadeImage.color = c;
 
-            if (m_timer > m_fadeTime)
+            if (_timer > _fadeTime)
             {
                 // フェード完了
                 OnFadeFinished();
@@ -40,7 +40,7 @@ public class FadeByTimer : MonoBehaviour
     /// </summary>
     public void Fade()
     {
-        m_fade = true;
+        _fade = true;
         Debug.Log("Fade 開始");
     }
 
@@ -49,8 +49,8 @@ public class FadeByTimer : MonoBehaviour
     /// </summary>
     void OnFadeFinished()
     {
-        m_fade = false;
+        _fade = false;
         Debug.Log("Fade 完了");
-        AudioSource.PlayClipAtPoint(m_buzzer, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(_buzzer, Camera.main.transform.position);
     }
 }
