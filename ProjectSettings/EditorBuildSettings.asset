@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/1 static pattern/static 1.unity
+    path: Assets/2-2 Data in Scenes/1 static pattern/static 1.unity
     guid: 4415ac925391fc6478a12c5ec1832231
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/1 static pattern/static 2.unity
+    path: Assets/2-2 Data in Scenes/1 static pattern/static 2.unity
     guid: c186ce1771cacff468a186e50114dc6d
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/2 DontDestroyOnLoad pattern/DDOL 2.unity
+    path: Assets/2-2 Data in Scenes/2 DontDestroyOnLoad pattern/DDOL 2.unity
     guid: e1aacfdf8b398374e9744a1469275cc7
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/2 DontDestroyOnLoad pattern/DDOL 1.unity
+    path: Assets/2-2 Data in Scenes/2 DontDestroyOnLoad pattern/DDOL 1.unity
     guid: 2e6e07ff1982f714ab9d790cb9f12c97
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/3 PlayerPrefs pattern/PlayerPrefs 1.unity
+    path: Assets/2-2 Data in Scenes/3 PlayerPrefs pattern/PlayerPrefs 1.unity
     guid: adf829497b52176408fbfc5f91bd8f9e
   - enabled: 1
-    path: Assets/2-3 Data in Scenes/3 PlayerPrefs pattern/PlayerPrefs 2.unity
+    path: Assets/2-2 Data in Scenes/3 PlayerPrefs pattern/PlayerPrefs 2.unity
     guid: 7ce59079ac4cc4e499e5defa8d60ca6a
   m_configObjects: {}
