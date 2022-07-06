@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class StaticPattern : MonoBehaviour
 {
     /// <summary>プレイヤーの名前。これをシーンまたぎで渡す</summary>
-    public static string m_name = "ああああ";
+    public static string _name = "ああああ";
     /// <summary>メッセージを表示するテキスト</summary>
-    [SerializeField] Text m_text = default;
+    [SerializeField] Text _text = default;
 
     /// <summary>
     /// 名前を保存する
@@ -17,15 +17,15 @@ public class StaticPattern : MonoBehaviour
     /// <param name="input"></param>
     public void SetName(InputField input)
     {
-        StaticPattern.m_name = input.text;
+        StaticPattern._name = input.text;
     }
 
     void Start()
     {
-        if (m_text)
+        if (_text)
         {
-            m_text.text = $"よくぞ来た！勇者 <b><color=red>{StaticPattern.m_name}</color></b> よ！";
-            Debug.Log(m_text.text);
+            _text.text = $"よくぞ来た！勇者 <b><color=red>{StaticPattern._name}</color></b> よ！";
+            Debug.Log(_text.text);
         }
     }
 }

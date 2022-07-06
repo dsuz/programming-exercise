@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class DDOLPattern : MonoBehaviour
 {
     /// <summary>メッセージを表示する Text オブジェクトの名前</summary>
-    [SerializeField] string m_messageTextName = "MessageText";
+    [SerializeField] string _messageTextName = "MessageText";
     /// <summary>プレイヤーの名前。これをシーンまたぎで渡す</summary>
-    [SerializeField] string m_name = "ああああ";
+    [SerializeField] string _name = "ああああ";
     /// <summary>Start 関数の処理が終わっているか表すフラグ</summary>
-    bool m_isStarted = false;
+    bool _isStarted = false;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class DDOLPattern : MonoBehaviour
             // 自分しかいない時は、自分を DontDestroyOnLoad に登録する
             DontDestroyOnLoad(this.gameObject);
             ShowMessage();
-            m_isStarted = true;
+            _isStarted = true;
         }
     }
 
@@ -35,7 +35,7 @@ public class DDOLPattern : MonoBehaviour
     /// <param name="input"></param>
     public void SetName(InputField input)
     {
-        m_name = input.text;
+        _name = input.text;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class DDOLPattern : MonoBehaviour
     /// <param name="level"></param>
     void OnLevelWasLoaded(int level)
     {
-        if (m_isStarted) ShowMessage();
+        if (_isStarted) ShowMessage();
     }
 
     /// <summary>
@@ -54,12 +54,12 @@ public class DDOLPattern : MonoBehaviour
     /// </summary>
     void ShowMessage()
     {
-        GameObject go = GameObject.Find(m_messageTextName);
+        GameObject go = GameObject.Find(_messageTextName);
         Text text = go?.GetComponent<Text>();
 
         if (text)
         {
-            text.text = $"おお！<b><color=red>{m_name}</color></b> よ！しんでしまうとは なにごとだ！";
+            text.text = $"おお！<b><color=red>{_name}</color></b> よ！しんでしまうとは なにごとだ！";
             Debug.Log(text.text);
         }
     }

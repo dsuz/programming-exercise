@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// </summary>
 public class JSONLoad : MonoBehaviour
 {
-    [SerializeField] Text m_text = default;
+    [SerializeField] Text _text = default;
 
     public void Load()
     {
@@ -18,6 +18,6 @@ public class JSONLoad : MonoBehaviour
         // 画面に表示する
         string status = "Name: " + saveData.Name + "\r\nLevel: " + saveData.Level
             + "\r\nHP: " + saveData.Hp + " / " + saveData.MaxHp;
-        m_text.text = status;
+        _text.text = status;
     }
 }
