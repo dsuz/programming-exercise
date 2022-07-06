@@ -26,8 +26,7 @@ public class StopWatchByCoroutine : MonoBehaviour
         }
         else
         {
-            // 実行中だったら停止する
-            StopWorking();
+            // TODO: 実行中だったら停止する
         }
     }
 
@@ -46,22 +45,10 @@ public class StopWatchByCoroutine : MonoBehaviour
     }
 
     /// <summary>
-    /// ストップウォッチを止める
+    /// ストップウォッチのタイマーを 0 にリセットする
     /// </summary>
-    void StopWorking()
-    {
-        StopCoroutine(_coroutine);
-        _coroutine = null; // 停止中は null
-    }
-
     public void Reset()
     {
-        if (_coroutine != null)
-        {
-            StopWorking();
-        }
-
-        _timer = 0;
-        _stopWatch.text = _timer.ToString("F2");
+        // TODO: 機能を作る
     }
 }

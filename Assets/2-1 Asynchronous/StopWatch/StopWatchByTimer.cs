@@ -34,7 +34,6 @@ public class StopWatchByTimer : MonoBehaviour
         if (_isWorking)
         {
             // TODO: 計測中ならばストップウォッチを止める
-            _isWorking = false;
         }
         else
         {
