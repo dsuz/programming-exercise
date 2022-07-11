@@ -7,7 +7,7 @@
 public class PlayerBallController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed = 3f;
-    Rigidbody2D _rb = default;
+    Rigidbody2D _rb;
 
     void Start()
     {

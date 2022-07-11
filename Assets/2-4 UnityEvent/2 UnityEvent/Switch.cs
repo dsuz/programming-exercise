@@ -8,7 +8,7 @@ using UnityEngine.Events;   // UnityEvent を使うための名前空間
 public class Switch : MonoBehaviour
 {
     [Tooltip("スイッチのトリガーに Player が接触した時に呼ぶ関数を登録する。")]
-    [SerializeField] UnityEvent _actions = default;
+    [SerializeField] UnityEvent _actions;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
