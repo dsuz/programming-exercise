@@ -2,35 +2,35 @@
 
 public class Elevator : MonoBehaviour
 {
-    Animator m_anim = default;
-    AudioSource m_audio = default;
+    Animator _anim = default;
+    AudioSource _audio = default;
     /// <summary>上にあるのか、下に居るのか</summary>
-    bool m_isUp = false;
+    bool _isUp = false;
     /// <summary>動作中フラグ</summary>
-    bool m_isMoving = false;
+    bool _isMoving = false;
 
     void Start()
     {
-        m_anim = GetComponent<Animator>();
-        m_audio = GetComponent<AudioSource>();
+        _anim = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
     }
 
     public void Move()
     {
-        if (m_isMoving) return;
-        m_isMoving = true;
-        m_audio.Play();
+        if (_isMoving) return;
+        _isMoving = true;
+        _audio.Play();
 
-        if (m_isUp)
+        if (_isUp)
         {
-            m_anim.Play("Down");
+            _anim.Play("Down");
         }
         else
         {
-            m_anim.Play("Up");
+            _anim.Play("Up");
         }
 
-        m_isUp = !m_isUp;
+        _isUp = !_isUp;
     }
 
     /// <summary>
@@ -38,6 +38,6 @@ public class Elevator : MonoBehaviour
     /// </summary>
     void EndMove()
     {
-        m_isMoving = false;
+        _isMoving = false;
     }
 }
